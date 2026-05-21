@@ -1,0 +1,12 @@
+from tkinter import *
+window=Tk()
+window.geometry("400x300")
+window.title("")
+window.config(background="blue")
+button=Button(window,text="Enter",background="blue",foreground="blue",bd="10",command=window.destroy)
+button.pack(side="right")
+label=Label(window,text="green",background="green",foreground="blue",bd="10")
+label.pack(side="left")
+entry=Entry(window,background="yellow")
+entry.pack(side="bottom")
+window.mainloop()

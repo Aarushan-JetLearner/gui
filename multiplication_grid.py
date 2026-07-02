@@ -1,0 +1,30 @@
+from tkinter import *
+from tkinter.ttk import *
+screen=Tk()
+title=Label(screen,text="Multiplication table")
+title.grid(row=0,column=1,columnspan=3,padx=25,pady=25)
+selection=Label(screen,text="Select number and range")
+selection.grid(row=1,column=0,padx=25)
+thenum=IntVar()
+combo_box=Combobox(screen,textvariable=thenum)
+combo_box.grid(row=1,column=2)
+combo_box["values"]=tuple(range(101))
+thenum2=IntVar()
+rad=Radiobutton(screen,variable=thenum2,text="10",value=10)
+rad2=Radiobutton(screen,variable=thenum2,text="20",value=20)
+rad3=Radiobutton(screen,variable=thenum2,text="30",value=30)
+rad.grid(row=1,column=3)
+rad2.grid(row=2,column=3)
+rad3.grid(row=3,column=3)
+display_label=Label(screen)
+display_label.grid(row=3,column=2)
+def display_table():
+    answer=("")
+    for i in range(thenum2.get()):
+        answer=answer+str(thenum.get())+(" X ")+str(i+1)+(" = ")+str(thenum.get()*(i+1))+("\n")
+    display_label.config(text=answer)
+thenum2.set(10)
+generate=Button(screen,text="Generate",command=display_table)
+generate.grid(row=2,column=2)
+
+screen.mainloop()

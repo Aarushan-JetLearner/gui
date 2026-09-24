@@ -2,18 +2,36 @@ from tkinter import *
 window=Tk()
 window.geometry("700x500")
 dicti={}
+def clear():
+    Name_entry.delete(0,END)
+    Address_entry.delete(0,END)
+    Birthday_entry.delete(0,END)
+    Mobile_entry.delete(0,END)
+    Email_entry.delete(0,END)
 def update_or_add():
     Name1=Name_entry.get()
     if Name1 not in dicti.keys():
         list_box.insert(END,Name1)
-    dicti[Name1]=(Address_entry.get(),Birthday_entry.get(),Mobile_entry.get(),Email_entry.get())
+        
+    dicti[Name1]=(Address_entry.get(),Mobile_entry.get(),Birthday_entry.get(),Email_entry.get())
     print(dicti)
-    
-
-
-
-
-    
+    clear()
+def deletion():
+    index=list_box.curselection()
+    names=list_box.get(index)
+    dicti.pop(names)
+    print(dicti)
+    list_box.delete(list_box.curselection())
+def edit():
+    index2=list_box.curselection()
+    name2=list_box.get(index2)
+    stored=dicti[name2]
+    print(stored[0])
+    Name_entry.insert(0,name2)
+    Address_entry.insert(1,stored[0])
+    Mobile_entry.insert(2,stored[1])
+    Email_entry.insert(3,stored[3])
+    Birthday_entry.insert(4,stored[2])
 Title_Label=Label(window,text="My address book")
 Title_Label.place(x=20,y=20)
 Open_button=Button(window,text="Open")
@@ -38,9 +56,9 @@ Birthday=Label(window,text="Birthday:")
 Birthday.place(x=200,y=340)
 Birthday_entry=Entry(window)
 Birthday_entry.place(x=250,y=340)
-Edit=Button(window,text="Edit")
+Edit=Button(window,text="Edit",command=edit)
 Edit.place(x=20,y=400)
-Delete=Button(window,text="Delete")
+Delete=Button(window,text="Delete",command=deletion)
 Delete.place(x=100,y=400)
 Update=Button(window,text="Update/Add",command=update_or_add)
 Update.place(x=450,y=400)

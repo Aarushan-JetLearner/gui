@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.filedialog import *
 window=Tk()
 window.geometry("700x500")
 dicti={}
@@ -32,9 +33,25 @@ def edit():
     Mobile_entry.insert(2,stored[1])
     Email_entry.insert(3,stored[3])
     Birthday_entry.insert(4,stored[2])
+def save():
+    global dicti
+    file_store=asksaveasfile(defaultextension=".txt")
+    print(dicti,file=file_store)
+    dicti.clear()
+    list_box.delete(0,END)
+    print(dicti)
+def open():
+    global dicti
+    opening=askopenfile(title="txtfile")
+    dicti=eval(opening.read())
+    for i in dicti.keys():
+        list_box.insert(END,i)
+   
+
+
 Title_Label=Label(window,text="My address book")
 Title_Label.place(x=20,y=20)
-Open_button=Button(window,text="Open")
+Open_button=Button(window,text="Open",command=open)
 Open_button.place(x=200,y=20)
 Name=Label(window,text="Name:")
 Name.place(x=200,y=100)
@@ -62,7 +79,7 @@ Delete=Button(window,text="Delete",command=deletion)
 Delete.place(x=100,y=400)
 Update=Button(window,text="Update/Add",command=update_or_add)
 Update.place(x=450,y=400)
-Save=Button(window,text="Save")
+Save=Button(window,text="Save",command=save)
 Save.place(x=200,y=450)
 frame=Frame(window)
 frame.place(x=50,y=100)

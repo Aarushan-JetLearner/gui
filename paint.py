@@ -4,7 +4,7 @@ window=Tk()
 window.geometry("500x500")
 x1=None
 y1=None
-default_colour="white"
+default_colour="blue"
 def activate(button):
     global active_button
     button.config(relief=SUNKEN)
@@ -12,11 +12,19 @@ def activate(button):
     active_button=button
     if active_button==eraser:
         global default_colour
-        default_colour="blue"
+        default_colour="white"
     elif active_button==colour:
         default_colour=askcolor(default_colour)[1]
     elif active_button==brush:
         scale.set(10)
+    elif active_button==red:
+        default_colour="red"
+    elif active_button==blue:
+        default_colour="blue"
+    elif active_button==green:
+        default_colour="green"
+    elif active_button==yellow:
+        default_colour="yellow"
     else:
         default_colour="white"
     
@@ -29,7 +37,7 @@ def draw(event):
     x1=event.x
     y1=event.y
 
-canvas=Canvas(window,width=500,height=400,bg="blue")
+canvas=Canvas(window,width=500,height=400,bg="white")
 canvas.bind("<B1-Motion>",draw)
 
 canvas.place(x=0,y=100)
@@ -48,5 +56,12 @@ scale.place(x=400,y=30)
 active_button=pen
 clear_all=Button(window,text="Clear all",command=clear_screen)
 clear_all.place(x=350,y=75)
-
+red=Button(window,text="           ",background="red",command=lambda:activate(red))
+red.place(x=250,y=80)
+blue=Button(window,text="           ",background="blue",command=lambda:activate(blue))
+blue.place(x=180,y=80)
+yellow=Button(window,text="           ",background="yellow",command=lambda:activate(yellow))
+yellow.place(x=110,y=80)
+green=Button(window,text="           ",background="green",command=lambda:activate(green))
+green.place(x=40,y=80)
 window.mainloop()

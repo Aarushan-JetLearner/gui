@@ -10,10 +10,8 @@ def move_paddle1(event):
     global p1y1
     if event.keysym=="w":
         p1y1=-5
-        print("move paddle 1")
     elif event.keysym=="s":
         p1y1=5
-        print("move paddle 1")
 def move_paddle2(event):
     global p2y1
     if event.keysym=="Up":
@@ -21,9 +19,22 @@ def move_paddle2(event):
     elif event.keysym=="Down":
         p2y1=5
 def paddle_motion(paddle,change_in_y):
+    p=canvas.coords(paddle)
+    if p[1]<=0:
+        canvas.move(paddle,0,-p[1])
+
+    
     canvas.move(paddle,0,change_in_y)
+def stop_paddle(event):
+    global p1y1,p2y1
+    if event.keysym=="w" or event.keysym=="s":
+        p1y1=0
+    if event.keysym=="Up" or event.keysym=="Down":
+        p2y1=0
 def loop():
     paddle_motion(paddle1,p1y1)
+    paddle_motion(paddle2,p2y1)
+
     window.after(10,loop)
     
 canvas.create_line(250,0,250,600,fill="white")
@@ -35,6 +46,10 @@ canvas.bind_all("<KeyPress-w>",move_paddle1)
 canvas.bind_all("<KeyPress-s>",move_paddle1)
 canvas.bind_all("<KeyPress-Up>",move_paddle2)
 canvas.bind_all("<KeyPress-Down>",move_paddle2)
+canvas.bind_all("<KeyRelease-w>",stop_paddle)
+canvas.bind_all("<KeyRelease-s>",stop_paddle)
+canvas.bind_all("<KeyRelease-Up>",stop_paddle)
+canvas.bind_all("<KeyRelease-Down>",stop_paddle)
 loop()
 
 

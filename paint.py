@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter.colorchooser import askcolor
+from tkinter.filedialog import *
+from PIL import Image
 window=Tk()
 window.geometry("500x500")
 x1=None
@@ -25,6 +27,9 @@ def activate(button):
         default_colour="green"
     elif active_button==yellow:
         default_colour="yellow"
+    elif active_button==saving:
+        canvas.postscript(file="image.eps")
+        
     else:
         default_colour="white"
     
@@ -64,4 +69,6 @@ yellow=Button(window,text="           ",background="yellow",command=lambda:activ
 yellow.place(x=110,y=80)
 green=Button(window,text="           ",background="green",command=lambda:activate(green))
 green.place(x=40,y=80)
+saving=Button(window,text="Save image",command=lambda:activate(saving))
+saving.place(x=190,y=20)
 window.mainloop()
